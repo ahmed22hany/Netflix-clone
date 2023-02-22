@@ -1,7 +1,12 @@
 import Head from 'next/head'
+import { useRecoilValue } from 'recoil'
+import { modalState } from '../atoms/modalAtom'
 import Banner from '../components/Banner'
 import Header from '../components/Header'
+import LoadingPage from '../components/LoadingPage'
+import Modal from '../components/Modal'
 import Row from '../components/Row'
+import useAuth from '../hooks/useAuth'
 import { Movie } from '../typings'
 import requests from '../utils/request'
 
@@ -23,6 +28,12 @@ const Home = ({ netflixOriginals, actionMovies,
   romanceMovies,
   topRated,
   trendingNow, }: Props) => {
+
+  const { loading } = useAuth()
+  if (loading) return <LoadingPage />
+
+  const showModal = useRecoilValue(modalState)
+
   return (
     <div className="h-screen relative bg-gradient-to-b from-gray-900/10 to-[#010511] lg:h-[140vh]">
       <Head>
@@ -43,6 +54,7 @@ const Home = ({ netflixOriginals, actionMovies,
           <Row title="Documentaries" movies={documentaries} />
         </section>
       </main>
+      {showModal && <Modal />}
     </div>
   )
 }

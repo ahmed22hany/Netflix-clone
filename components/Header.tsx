@@ -2,9 +2,11 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { BsFillBellFill } from 'react-icons/bs'
+import useAuth from '../hooks/useAuth'
 const Header = () => {
 
     const [isScrolled, setIsScrolled] = useState(false)
+    const { logout } = useAuth()
 
     useEffect(() => {
         const handleScroll = () => {
@@ -46,14 +48,15 @@ const Header = () => {
                 <AiOutlineSearch className='hidden sm:inline h-auto' />
                 <p className='hidden lg:flex items-center '>Kids</p>
                 <BsFillBellFill className='h-auto' />
-                <Link href={`/account`}>
-                    <img
-                        src="https://rb.gy/g1pwyx"
-                        alt=""
-                        className="cursor-pointer rounded"
+                {/* <Link href={`/account`}> */}
+                <img
+                    onClick={logout}
+                    src="https://rb.gy/g1pwyx"
+                    alt=""
+                    className="cursor-pointer rounded"
 
-                    />
-                </Link>
+                />
+                {/* </Link> */}
             </div>
         </header>
     )
